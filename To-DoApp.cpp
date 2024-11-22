@@ -26,7 +26,7 @@ private:
 
 enum
 {
-    ID_Hello = 2
+    ID_Hello = 3
 };
 
 wxIMPLEMENT_APP(MyApp);
