@@ -26,7 +26,7 @@ private:
 
 enum
 {
-    ID_Hello = 1
+    ID_Hello = 2
 };
 
 wxIMPLEMENT_APP(MyApp);
@@ -39,7 +39,7 @@ bool MyApp::OnInit()
 }
 
 MyFrame::MyFrame()
-    : wxFrame(NULL, wxID_ANY, "Hello Rusy")
+    : wxFrame(NULL, wxID_ANY, "Hello Austin")
 {
     wxMenu* menuFile = new wxMenu;
     menuFile->Append(ID_Hello, "&Hello...\tCtrl-H",
