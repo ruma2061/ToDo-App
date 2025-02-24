@@ -1,9 +1,10 @@
 #pragma once
 #include <wx/wx.h>
+#define wxCENTER_ON_SCREEN 0x0001s
 
-class MainFrame : public wxFrame
+class mainFrame : public wxFrame
 {
 public:
-	MainFrame(const wxString& title);
+	mainFrame(const wxString& title);
 };
 

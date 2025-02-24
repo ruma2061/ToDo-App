@@ -9,10 +9,10 @@
 #include <wx/wx.h>
 #endif
 
-class MyFrame : public wxFrame
+class myFrame : public wxFrame
 {
 public:
-    MyFrame();
+    myFrame();
 
 private:
     void OnHello(wxCommandEvent& event);
@@ -29,12 +29,13 @@ wxIMPLEMENT_APP(myApp);
 
 bool myApp::OnInit()
 {
-    MyFrame* frame = new MyFrame();
+    myFrame* frame = new myFrame();
+	frame->SetClientSize(800, 700); // Set the size of the window (width, height)
     frame->Show(true);
     return true;
 }
 
-MyFrame::MyFrame()
+myFrame::myFrame()
     : wxFrame(NULL, wxID_ANY, "To-Do")
 {
     wxMenu* menuFile = new wxMenu;
@@ -43,35 +44,46 @@ MyFrame::MyFrame()
     menuFile->AppendSeparator();
     menuFile->Append(wxID_EXIT);
 
+    wxMenu* menuEdit = new wxMenu;
+	menuEdit->Append(wxID_UNDO);
+	menuEdit->Append(wxID_REDO);
+	menuEdit->AppendSeparator();
+	menuEdit->Append(wxID_CUT);
+	menuEdit->Append(wxID_COPY);
+	menuEdit->Append(wxID_PASTE);
+	menuEdit->AppendSeparator();
+    menuEdit->Append(wxID_SELECTALL);
+
     wxMenu* menuHelp = new wxMenu;
     menuHelp->Append(wxID_ABOUT);
 
     wxMenuBar* menuBar = new wxMenuBar;
     menuBar->Append(menuFile, "&File");
+    menuBar->Append(menuEdit, "&Edit");
     menuBar->Append(menuHelp, "&Help");
 
     SetMenuBar(menuBar);
 
     CreateStatusBar();
-    SetStatusText("Running wxWidgets 3.2.7");
+    SetStatusText("Running on wxWidgets 3.2.7");
 
-    Bind(wxEVT_MENU, &MyFrame::OnHello, this, ID_Hello);
-    Bind(wxEVT_MENU, &MyFrame::OnAbout, this, wxID_ABOUT);
-    Bind(wxEVT_MENU, &MyFrame::OnExit, this, wxID_EXIT);
+    Bind(wxEVT_MENU, &myFrame::OnHello, this, ID_Hello);
+    Bind(wxEVT_MENU, &myFrame::OnAbout, this, wxID_ABOUT);
+    Bind(wxEVT_MENU, &myFrame::OnExit, this, wxID_EXIT);
 }
 
-void MyFrame::OnExit(wxCommandEvent& event)
+void myFrame::OnExit(wxCommandEvent& event)
 {
     Close(true);
 }
 
-void MyFrame::OnAbout(wxCommandEvent& event)
+void myFrame::OnAbout(wxCommandEvent& event)
 {
     wxMessageBox("This is a wxWidgets Hello World example",
         "About Hello World", wxOK | wxICON_INFORMATION);
 }
 
-void MyFrame::OnHello(wxCommandEvent& event)
+void myFrame::OnHello(wxCommandEvent& event)
 {
-    wxLogMessage("Hello world from wxWidgets!");
+    wxLogMessage("Hello, To-Do List App made by Russell.");
 }

@@ -1,7 +1,6 @@
 #include "MainFrame.h"
 #include <wx/wx.h>
 
-MainFrame::MainFrame(const wxString& title): wxFrame(nullptr, wxID_ANY, title) { // Constructor of Base class
-
+mainFrame::mainFrame(const wxString& title): wxFrame(nullptr, wxID_ANY, title){ // Constructor of Base class
 }
 
