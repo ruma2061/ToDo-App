@@ -2,16 +2,12 @@
 
 // For compilers that support precompilation, includes "wx/wx.h".
 #include <wx/wxprec.h>
+#include "app.h"
+#include "mainFrame.h"
 
 #ifndef WX_PRECOMP
 #include <wx/wx.h>
 #endif
-
-class MyApp : public wxApp
-{
-public:
-    virtual bool OnInit();
-};
 
 class MyFrame : public wxFrame
 {
@@ -29,9 +25,9 @@ enum
     ID_Hello = 3
 };
 
-wxIMPLEMENT_APP(MyApp);
+wxIMPLEMENT_APP(myApp);
 
-bool MyApp::OnInit()
+bool myApp::OnInit()
 {
     MyFrame* frame = new MyFrame();
     frame->Show(true);
@@ -39,7 +35,7 @@ bool MyApp::OnInit()
 }
 
 MyFrame::MyFrame()
-    : wxFrame(NULL, wxID_ANY, "Hello Rusy")
+    : wxFrame(NULL, wxID_ANY, "To-Do")
 {
     wxMenu* menuFile = new wxMenu;
     menuFile->Append(ID_Hello, "&Hello...\tCtrl-H",
@@ -57,7 +53,7 @@ MyFrame::MyFrame()
     SetMenuBar(menuBar);
 
     CreateStatusBar();
-    SetStatusText("Welcome to wxWidgets!");
+    SetStatusText("Running wxWidgets 3.2.7");
 
     Bind(wxEVT_MENU, &MyFrame::OnHello, this, ID_Hello);
     Bind(wxEVT_MENU, &MyFrame::OnAbout, this, wxID_ABOUT);
