@@ -26,15 +26,16 @@ private:
     void OnHello(wxCommandEvent& event);
     void OnExit(wxCommandEvent& event);
     void OnAbout(wxCommandEvent& event);
-    void OnClick(wxCommandEvent& event);
+    void CreateControls();
 
-    wxDECLARE_EVENT_TABLE();
+    wxFont mainFont;
+	wxTextCtrl* inputField;
+    wxButton* addButton;
+    wxCheckListBox* checkList;
+    wxButton* clearButton;
+
     
 };
-
-wxBEGIN_EVENT_TABLE(myFrame, wxFrame)
-EVT_BUTTON(wxID_ANY, myFrame::OnClick)
-wxEND_EVENT_TABLE()
 
 
 //----------------------------------------------------------------------
@@ -100,20 +101,9 @@ myFrame::myFrame(const wxString& title, const wxPoint& pos, const wxSize& size) 
     Bind(wxEVT_MENU, &myFrame::OnAbout, this, wxID_ABOUT);
     Bind(wxEVT_MENU, &myFrame::OnExit, this, wxID_EXIT);
 
-    wxSplitterWindow* splitter = new wxSplitterWindow(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxSP_BORDER | wxSP_LIVE_UPDATE);
+    CreateControls();
 
-    //Panels in window that appears
-    wxPanel *left = new wxPanel(splitter);
-    left->SetBackgroundColour(wxColor(200, 100, 100));
 
-	wxPanel *right = new wxPanel(splitter);
-	right->SetBackgroundColour(wxColor(100, 200, 100));
-
-    splitter->SplitVertically(left, right);
-    splitter->SetMinimumPaneSize(80);
-    left->SetMinSize(wxSize(80,0));
-    splitter->SetSashGravity(0);
-    splitter->SetSashPosition(20);
 }
 
 void myFrame::OnExit(wxCommandEvent& event)
@@ -128,13 +118,34 @@ void myFrame::OnAbout(wxCommandEvent& event)
         "About Hello World", wxOK | wxICON_INFORMATION);
 }
 
+void myFrame::CreateControls()
+{
+    wxSplitterWindow* splitter = new wxSplitterWindow(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxSP_BORDER | wxSP_LIVE_UPDATE);
+
+    //Panels in window that appears
+    wxPanel* left = new wxPanel(splitter);
+    left->SetBackgroundColour(wxColor(200, 100, 100));
+
+    wxPanel* right = new wxPanel(splitter);
+    right->SetBackgroundColour(wxColor(100, 200, 100));
+
+    splitter->SplitVertically(left, right);
+    splitter->SetMinimumPaneSize(80);
+    left->SetMinSize(wxSize(80, 0));
+    splitter->SetSashGravity(0);
+    splitter->SetSashPosition(20);
+	inputField = new wxTextCtrl(right, wxID_ANY, " ", wxPoint(100, 80), wxSize(495, 35));
+	inputField->SetBackgroundColour(wxColor(255, 255, 255));
+	inputField->SetForegroundColour(wxColor(0, 0, 0));
+	inputField->SetFont(wxFont(12, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL));
+	inputField->SetToolTip("Enter your task here");
+	addButton = new wxButton(right, wxID_ANY, "Add Task", wxPoint(600,80), wxSize(100,35));
+	checkList = new wxCheckListBox(right, wxID_ANY, wxPoint(100,120), wxSize(600,400));
+	clearButton = new wxButton(right, wxID_ANY, "Clear", wxPoint(100,525),wxSize(100,35));
+}
+
 // void OnHello is called when user clicks on the "Hello" Menu taskbar item... under file
 void myFrame::OnHello(wxCommandEvent& event)
 {
     wxLogMessage("Hello, To-Do List App made by Russell.");
-}
-
-void myFrame::OnClick(wxCommandEvent& event)
-{
-    std::cout << "Button clicked! - id: " << std::endl;
 }
